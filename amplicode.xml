@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AmplicodeDatabaseMigrationSettings" lastSelectedDirectory="src/main/resources/db/migration" />
+  <component name="AmplicodeJpaPluginProjectSettings">
+    <option name="lastSelectedLanguage" value="Kotlin" />
+  </component>
+  <component name="AmplicodePersistenceUnitSettings">
+    <persistence-units>
+      <persistence-unit moduleName="acl" name="Default">
+        <packages>
+          <package value="com.example.acl" />
+        </packages>
+      </persistence-unit>
+    </persistence-units>
+  </component>
+</project>
