@@ -15,14 +15,12 @@ open class User {
     @JoinColumn(name = "department_id")
     open var department: Department? = null
 
-    @ManyToMany(cascade = [CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH, CascadeType.DETACH])
-    @JoinTable(
-        name = "user_userRoles",
-        joinColumns = [JoinColumn(name = "user_id")],
-        inverseJoinColumns = [JoinColumn(name = "userRoles_id")]
-    )
+    @OneToMany(mappedBy = "user", cascade = [CascadeType.ALL], orphanRemoval = true)
     open var userRoles: MutableSet<UserRole> = mutableSetOf()
 
     @OneToOne(mappedBy = "user", cascade = [CascadeType.ALL], optional = true, orphanRemoval = true)
     open var userCredentials: UserCredentials? = null
+
+    @Column(name = "name")
+    open var name: String? = null
 }

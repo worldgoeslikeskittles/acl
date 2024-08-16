@@ -1,4 +1,4 @@
-package com.example.acl.rest.controller
+package com.example.acl.rest.dto.user
 
 import com.example.acl.domain.Role
 

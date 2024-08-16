@@ -4,5 +4,6 @@ enum class Role {
     ADMIN,
     USER,
     MANAGER,
-    WORKER
+    WORKER,
+    CUSTOMER
 }

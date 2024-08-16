@@ -16,6 +16,10 @@ open class UserRole {
     @Column(name = "role", nullable = false)
     open var role: Role? = null
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "user_id")
+    open var user: User? = null
+
     final override fun equals(other: Any?): Boolean {
         if (this === other) return true
         if (other == null) return false

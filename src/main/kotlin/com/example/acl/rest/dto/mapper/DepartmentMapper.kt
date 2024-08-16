@@ -1,7 +1,8 @@
-package com.example.acl.rest.controller
+package com.example.acl.rest.dto.mapper
 
 import com.example.acl.domain.Department
 import com.example.acl.domain.User
+import com.example.acl.rest.dto.department.DepartmentDto
 import org.mapstruct.*
 
 @Mapper(unmappedTargetPolicy = ReportingPolicy.IGNORE, componentModel = MappingConstants.ComponentModel.SPRING)

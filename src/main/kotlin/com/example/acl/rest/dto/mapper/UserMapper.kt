@@ -1,10 +1,8 @@
 package com.example.acl.rest.dto.mapper
 
-import com.example.acl.domain.Department
-import com.example.acl.domain.Role
-import com.example.acl.domain.User
-import com.example.acl.domain.UserRole
-import com.example.acl.rest.controller.UserDto
+import com.example.acl.domain.*
+import com.example.acl.rest.dto.user.UserDto
+import com.example.acl.rest.dto.customer.CustomerRegistrationDto
 import org.mapstruct.*
 
 @Mapper(unmappedTargetPolicy = ReportingPolicy.IGNORE, componentModel = MappingConstants.ComponentModel.SPRING)
@@ -19,6 +17,21 @@ abstract class UserMapper {
     @BeanMapping(nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
     abstract fun toEntity(userDto: UserDto): User
 
+    fun customerRegDtoToEntity(userDto: CustomerRegistrationDto?): User? = if (userDto == null) {
+        null
+    } else {
+        User().let {
+            it.userCredentials = UserCredentials()
+                .apply {
+                    login = userDto.userCredentialsLogin
+                    password = userDto.userCredentialsPassword
+                    user = it
+                }
+            it.name = userDto.name
+            it
+        }
+    }
+
     @InheritInverseConfiguration(name = "toEntity")
     @Mapping(source = "department.id", target = "workPlaceId")
     @Mapping(source = "userRoles", target = "userRoleRoles", qualifiedByName = ["userRolesToUserRoleRoles"])
@@ -30,10 +43,10 @@ abstract class UserMapper {
 
     @Named("createDepartment")
     fun createDepartment(workPlaceId: Long): Department = workPlaceId.let {
-                Department().apply {
-                    this.id = workPlaceId
-                }
-            }
+        Department().apply {
+            this.id = workPlaceId
+        }
+    }
 
     @Named("userRolesToUserRoleRoles")
     fun userRolesToUserRoleRoles(userRoles: MutableSet<UserRole>): MutableSet<Role?> {
@@ -41,5 +54,6 @@ abstract class UserMapper {
     }
 
     @Named("RolesToUserRoles")
-    fun rolesToUserRoles(roles: MutableSet<Role?>): Set<UserRole> = roles.map { givenRole-> UserRole().apply { role = givenRole } }.toMutableSet()
+    fun rolesToUserRoles(roles: MutableSet<Role?>): Set<UserRole> =
+        roles.map { givenRole -> UserRole().apply { role = givenRole } }.toMutableSet()
 }

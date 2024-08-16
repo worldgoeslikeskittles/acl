@@ -1,4 +1,4 @@
-package com.example.acl.rest.controller
+package com.example.acl.rest.dto.department
 
 /**
  * DTO for {@link com.example.acl.domain.Department}
