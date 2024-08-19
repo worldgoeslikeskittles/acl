@@ -18,4 +18,8 @@ open class Payment {
     @Enumerated(EnumType.STRING)
     @Column(name = "payment_status", nullable = false)
     open var paymentStatus: PaymentStatus? = null
+
+    @OneToOne(fetch = FetchType.LAZY, orphanRemoval = true)
+    @JoinColumn(name = "order_id")
+    open var order: Order? = null
 }

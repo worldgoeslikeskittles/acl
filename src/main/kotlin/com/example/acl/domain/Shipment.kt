@@ -15,10 +15,6 @@ open class Shipment {
     @JoinColumn(name = "order_id", nullable = false)
     open var order: Order? = null
 
-    @OneToOne(fetch = FetchType.LAZY, optional = false, orphanRemoval = true)
-    @JoinColumn(name = "storage_id", nullable = false)
-    open var storage: Storage? = null
-
     @Column(name = "delivery_address", nullable = false)
     open var deliveryAddress: String? = null
 

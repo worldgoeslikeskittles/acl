@@ -19,9 +19,16 @@ open class Order {
     @OneToMany(mappedBy = "order", orphanRemoval = true)
     open var orderItems: MutableSet<OrderItem> = mutableSetOf()
 
-    @OneToOne(fetch = FetchType.LAZY, orphanRemoval = true)
-    @JoinColumn(name = "payment_id")
+    @OneToOne(orphanRemoval = true, mappedBy = "order")
     open var payment: Payment? = null
+
+    @OneToOne(cascade = [CascadeType.ALL], orphanRemoval = true, mappedBy = "order" )
+    open var shipment: Shipment? = null
+
+
+    @Enumerated(EnumType.STRING)
+    @Column(name = "order_status", nullable = false)
+    open var orderStatus: OrderStatus? = null
 
     final override fun equals(other: Any?): Boolean {
         if (this === other) return true
